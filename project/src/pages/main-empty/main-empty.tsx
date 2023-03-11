@@ -1,4 +1,4 @@
-function Card() {
+function Card(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <div style={{display: 'none'}}>

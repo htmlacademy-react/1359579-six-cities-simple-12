@@ -1,4 +1,4 @@
-function propertyNotLogged() {
+function propertyNotLogged(): JSX.Element {
   return(
     <div className="page">
       <div style={{display: 'none'}}>

@@ -1,4 +1,4 @@
-function Property() {
+function Property(): JSX.Element {
   return(
     <div className="page">
       <div style={{display: 'none'}}>
