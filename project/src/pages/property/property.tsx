@@ -1,4 +1,5 @@
 import Logo from '../../components/logo/logo';
+import {Link} from 'react-router-dom';
 
 function Property(): JSX.Element {
   return(
@@ -32,9 +33,9 @@ function Property(): JSX.Element {
                   </div>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
+                  <Link className="header__nav-link" to="/">
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
