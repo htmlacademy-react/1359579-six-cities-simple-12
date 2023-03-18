@@ -1,9 +1,17 @@
 import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
+import { Offer, Offers } from '../../types/offer';
+import { Reviews } from '../../types/review';
 
-function Property(): JSX.Element {
-  return(
+type OfferPageProps = {
+  offer: Offer;
+  offers: Offers;
+  reviews: Reviews;
+}
+
+function OfferPage({offer, offers, reviews}: OfferPageProps): JSX.Element {
+  return (
     <div className="page">
       <Helmet>
         <title>
@@ -318,4 +326,4 @@ function Property(): JSX.Element {
   );
 }
 
-export default Property;
+export default OfferPage;

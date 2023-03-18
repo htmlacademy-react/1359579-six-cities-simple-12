@@ -1,4 +1,4 @@
-const reviews = [
+export const reviews = [
   {
     'user': {
       'id': 1,
@@ -49,4 +49,3 @@ const reviews = [
   },
 ];
 
-export default reviews;

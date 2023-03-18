@@ -5,7 +5,7 @@ export type Location = {
 }
 
 export type City = {
-  name: 'string';
+  name: string;
   location: Location;
 }
 
@@ -32,3 +32,5 @@ export type Offer = {
   images: string[];
   location: Location;
 };
+
+export type Offers = Offer[];

@@ -1,4 +1,4 @@
-const offers = [
+export const offers = [
   {
     'type': 'house',
     'city': {
@@ -220,5 +220,3 @@ const offers = [
     },
   },
 ];
-
-export default offers;
