@@ -10,12 +10,12 @@ import { Reviews } from '../../types/review';
 
 
 type AppPageProps = {
-  offersCount: number;
+  // offersCount: number;
   offers: Offers;
   reviews: Reviews;
 }
 
-function App({offersCount, offers, reviews}: AppPageProps): JSX.Element {
+function App({offers, reviews}: AppPageProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -24,7 +24,6 @@ function App({offersCount, offers, reviews}: AppPageProps): JSX.Element {
             path="/"
             element={
               <PageMain
-                offersCount={offersCount}
                 offers={offers}
               />
             }
@@ -37,7 +36,6 @@ function App({offersCount, offers, reviews}: AppPageProps): JSX.Element {
             path={AppRoute.Property}
             element={
               <OfferPage
-                offer={offers[0]}
                 offers={offers}
                 reviews={reviews}
               />

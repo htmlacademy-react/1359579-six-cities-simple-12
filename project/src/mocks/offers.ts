@@ -1,4 +1,6 @@
-export const offers = [
+import { Offers } from '../types/offer';
+
+export const offers: Offers = [
   {
     'type': 'house',
     'city': {
@@ -6,7 +8,7 @@ export const offers = [
       'location': {
         'latitude': 52.354625,
         'longitude': 4.870067,
-        'zoom': 10
+        'zoom': 10,
       },
     },
     'title': 'Luxury Guesthouse Private entrance, Free parking',
@@ -16,7 +18,7 @@ export const offers = [
     'bedrooms': 2,
     'maxAdults': 4,
     'price': 350,
-    'comfort': [
+    'goods': [
       'Wi-Fi',
       'Cable TV',
       'Air-conditioner',
@@ -32,58 +34,16 @@ export const offers = [
     },
     'id': 1,
     'images': [
+      'img/room.jpg',
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',
       'img/apartment-03.jpg',
+      'img/studio-01.jpg',
     ],
-
+    'previewImage': 'img/apartment-01.jpg',
     'location': {
       'latitude': 52.370216,
       'longitude': 4.895168,
-      'zoom': 8
-    },
-  },
-  {
-    'type': 'apartment',
-    'city': {
-      'name': 'Paris',
-      'location': {
-        'latitude': 48.822860,
-        'longitude': 2.354483,
-        'zoom': 10
-      },
-    },
-    'title': 'Cozy apartment overlooking the garden',
-    'description': 'Beautiful cozy apartment with large garden view. The accommodation is very well located 5 minutes walk from the train station, 25 minutes from Paris. Supermarkets, bakery and shops 3 min walk away.',
-    'isPremium': false,
-    'rating': 4.84,
-    'bedrooms': 1,
-    'maxAdults': 2,
-    'price': 150,
-    'comfort': [
-      'Wi-Fi',
-      'Air-conditioner',
-      'Hair dryer',
-      'Cleaning products',
-      'Heating',
-      'Coffee machine',
-      'Free street parking',
-    ],
-    'owner': {
-      'id': 2,
-      'avatarUrl': 'img/avatar-max.jpg',
-      'name': 'Max',
-      'isPro': true,
-    },
-    'id': 2,
-    'images': [
-      'img/apartment-01.jpg',
-      'img/apartment-02.jpg',
-      'img/apartment-03.jpg',
-    ],
-    'location': {
-      'latitude': 48.822860,
-      'longitude': 2.354483,
       'zoom': 8
     },
   },
@@ -104,7 +64,7 @@ export const offers = [
     'bedrooms': 2,
     'maxAdults': 3,
     'price': 100,
-    'comfort': [
+    'goods': [
       'Wi-Fi',
       'Essentials',
       'Hair dryer',
@@ -125,8 +85,9 @@ export const offers = [
       'img/apartment-02.jpg',
       'img/apartment-03.jpg',
     ],
+    'previewImage': 'img/apartment-02.jpg',
     'location': {
-      'latitude': 53.516084,
+      'latitude': 52.354625,
       'longitude': 9.981076,
       'zoom': 8
     },
@@ -148,7 +109,7 @@ export const offers = [
     'bedrooms': 1,
     'maxAdults': 2,
     'price': 150,
-    'comfort': [
+    'goods': [
       'Wi-Fi',
       'Air-conditioner',
       'Hair dryer',
@@ -169,6 +130,7 @@ export const offers = [
       'img/apartment-02.jpg',
       'img/apartment-03.jpg',
     ],
+    'previewImage': 'img/apartment-02.jpg',
     'location': {
       'latitude': 48.822860,
       'longitude': 2.354483,
@@ -192,7 +154,7 @@ export const offers = [
     'bedrooms': 1,
     'maxAdults': 2,
     'price': 180,
-    'comfort': [
+    'goods': [
       'Fast wifi 277 Mbps',
       'HDTV with standard cable',
       'Microwave',
@@ -213,10 +175,11 @@ export const offers = [
       'img/apartment-02.jpg',
       'img/apartment-03.jpg',
     ],
+    'previewImage': 'img/apartment-02.jpg',
     'location': {
       'latitude': 50.812792,
       'longitude': 4.336639,
-      'zoom': 8
+      'zoom': 8,
     },
   },
 ];

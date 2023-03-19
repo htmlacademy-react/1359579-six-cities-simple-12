@@ -1,24 +1,13 @@
-export type Location = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
-
-export type City = {
-  name: string;
-  location: Location;
-}
-
-export type Owner = {
-  id: number;
-  avatarUrl: string;
-  name: string;
-  isPro: boolean;
-}
-
 export type Offer = {
   type: string;
-  city: City;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
   title: string;
   description: string;
   isPremium: boolean;
@@ -26,11 +15,22 @@ export type Offer = {
   bedrooms: number;
   maxAdults: number;
   price: number;
-  comfort: string[];
-  owner: Owner;
+  goods: string[];
+  owner: {
+    id: number;
+    avatarUrl: string;
+    name: string;
+    isPro: boolean;
+  };
   id: number;
   images: string[];
-  location: Location;
+  previewImage: string;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  };
 };
 
 export type Offers = Offer[];
+
