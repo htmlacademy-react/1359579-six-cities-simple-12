@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 
 type OfferCardProps = {
   offer: Offer;
+  onMouseOverHandler: () => void;
 }
 
-function OfferCard({offer}: OfferCardProps ) {
+function OfferCard({offer, onMouseOverHandler}: OfferCardProps ) {
   const {price, rating, type, title, id, isPremium, previewImage,} = offer;
+
   return (
-    <article className="cities__card place-card">
+    <article className="cities__card place-card" onMouseOver={onMouseOverHandler}>
       <div className="place-card__mark">
         {isPremium ? <span>Premium</span> : ''}
       </div>

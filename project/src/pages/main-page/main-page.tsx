@@ -1,4 +1,4 @@
-import CitiesListOffer from '../../components/cities-list-offer /cities-list-offer';
+import CitiesListOffer from '../../components/cities-list-offer/cities-list-offer';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 import { Offers } from '../../types/offer';
