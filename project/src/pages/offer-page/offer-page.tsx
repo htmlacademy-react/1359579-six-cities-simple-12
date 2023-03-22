@@ -59,11 +59,13 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {images.map((image) => (
-                <div className="property__image-wrapper" key={image}>
-                  <img className="property__image" src={image} alt="Studio" />
-                </div>
-              ))};
+              {
+                images.map((image) => (
+                  <div className="property__image-wrapper" key={image}>
+                    <img className="property__image" src={image} alt="Studio" />
+                  </div>
+                ))
+              };
             </div>
           </div>
           <div className="property__container container">

@@ -8,14 +8,13 @@ import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { Offers } from '../../types/offer';
 import { Reviews } from '../../types/review';
 
-
 type AppPageProps = {
-  // offersCount: number;
   offers: Offers;
   reviews: Reviews;
+  offersCount: number;
 }
 
-function App({offers, reviews}: AppPageProps): JSX.Element {
+function App({offersCount, offers, reviews}: AppPageProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -25,6 +24,7 @@ function App({offers, reviews}: AppPageProps): JSX.Element {
             element={
               <PageMain
                 offers={offers}
+                offersCount={offersCount}
               />
             }
           />
