@@ -9,7 +9,7 @@ type CitiesProps = {
   offersCount: number;
 }
 
-function Cities({city, offers, offersCount}: CitiesProps) {
+function Cities({city, offers, offersCount}: CitiesProps) :JSX.Element{
   const [activeOffer, setActiveOffer] = useState<Offer | undefined>(
     undefined
   );
