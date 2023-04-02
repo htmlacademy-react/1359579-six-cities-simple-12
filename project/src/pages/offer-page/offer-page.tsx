@@ -1,7 +1,7 @@
 import Logo from '../../components/logo/logo';
 import {Link} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
-import { Offers } from '../../types/offer';
+import { Offers, Offer } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { useParams } from 'react-router-dom';
 import ReviewsItem from '../../components/reviews-item/reviews-item';
@@ -16,7 +16,7 @@ type OfferPageProps = {
 function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
   const {id} = useParams();
 
-  const offer = offers.find((flat) => flat.id === Number(id));
+  const offer: Offer | undefined = offers.find((flat) => flat.id === Number(id));
 
   if (!offer) {
     throw new Error('This URL doesn`t exist.');
@@ -73,9 +73,13 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                {isPremium ? <span>Premium</span> : ''}
-              </div>
+              {
+                isPremium ?
+                  <div className="place-card__mark">
+                    <span>Premium</span>
+                  </div>
+                  : ''
+              }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
