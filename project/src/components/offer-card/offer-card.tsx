@@ -1,16 +1,41 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import { OfferCardLocation} from '../../const';
 
 type OfferCardProps = {
+  location: OfferCardLocation;
   offer: Offer;
-  onMouseOverHandler: () => void;
+  onMouseEnter?: (id: number) => void;
+  onMouseLeave?: () => void;
 }
 
-function OfferCard({offer, onMouseOverHandler}: OfferCardProps ) {
+function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps ) {
   const {price, rating, type, title, id, isPremium, previewImage,} = offer;
 
+  const offerCardClass = classNames('place-card', {
+    'cities__card': location === OfferCardLocation.cities,
+    'near-places__card': location === OfferCardLocation.nearPlaces,
+  });
+
+  const onMouseEnterHandler = () => {
+    if (onMouseEnter) {
+      onMouseEnter(offer.id);
+    }
+  };
+
+  const onMouseLeaveHandler = () => {
+    if (onMouseLeave) {
+      onMouseLeave();
+    }
+  };
+
   return (
-    <article className="cities__card place-card" onMouseOver={onMouseOverHandler}>
+    <article
+      className={offerCardClass}
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
+    >
       <div className="place-card__mark">
         {isPremium ? <span>Premium</span> : ''}
       </div>

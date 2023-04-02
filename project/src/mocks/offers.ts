@@ -169,7 +169,7 @@ export const offers: Offers = [
       'name': 'Angelina',
       'isPro': true,
     },
-    'id': 3,
+    'id': 4,
     'images': [
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',

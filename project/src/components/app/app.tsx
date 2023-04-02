@@ -25,6 +25,7 @@ function App({offersCount, offers, reviews}: AppPageProps): JSX.Element {
               <PageMain
                 offers={offers}
                 offersCount={offersCount}
+                city={offers[0].city}
               />
             }
           />
