@@ -13,7 +13,8 @@ type OfferCardProps = {
 function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps ) {
   const {price, rating, type, title, id, isPremium, previewImage,} = offer;
 
-  const offerCardClass : string = classNames('place-card', {
+
+  const offerCardClass: string = classNames('place-card', {
     'cities__card': location === OfferCardLocation.cities,
     'near-places__card': location === OfferCardLocation.nearPlaces,
   });
