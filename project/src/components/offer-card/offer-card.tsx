@@ -10,7 +10,7 @@ type OfferCardProps = {
   onMouseLeave?: () => void;
 }
 
-function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps ) {
+function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps): JSX.Element {
   const {price, rating, type, title, id, isPremium, previewImage,} = offer;
 
   const offerCardClass = classNames('place-card', {
