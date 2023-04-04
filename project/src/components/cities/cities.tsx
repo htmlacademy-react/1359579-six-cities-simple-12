@@ -1,12 +1,24 @@
+import {useState} from 'react';
 import CitiesPlacesList from '../cities-places-list/cities-places-list';
-import { Offers } from '../../types/offer';
+import { Offers, Offer } from '../../types/offer';
+import Map from '../map/map';
 
 type CitiesProps = {
+  city: Offer['city'];
   offers: Offers;
   offersCount: number;
 }
 
-function Cities({offers, offersCount}: CitiesProps) {
+function Cities({city, offers, offersCount}: CitiesProps) :JSX.Element{
+  const [activeOffer, setActiveOffer] = useState<Offer | undefined>(
+    undefined
+  );
+
+  const onCityCardHover = (offerId: number | null) => {
+    const currentOffer = offers.find((offer) => offer.id === offerId);
+
+    setActiveOffer(currentOffer);
+  };
   return (
     <div className="cities">
       <div className="cities__places-container container">
@@ -36,10 +48,10 @@ function Cities({offers, offersCount}: CitiesProps) {
               </li>
             </ul>
           </form>
-          <CitiesPlacesList offers={offers}/>
+          <CitiesPlacesList offers={offers} onCityCardHover={onCityCardHover}/>
         </section>
         <div className="cities__right-section">
-          <section className="cities__map map"></section>
+          <Map city={city} offers={offers} selectedOffer={activeOffer}/>
         </div>
       </div>
     </div>

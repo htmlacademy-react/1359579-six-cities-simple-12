@@ -6,8 +6,8 @@ export const offers: Offers = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.354625,
-        'longitude': 4.870067,
+        'latitude': 52.3909553943508,
+        'longitude': 4.85309666406198,
         'zoom': 10,
       },
     },
@@ -42,18 +42,18 @@ export const offers: Offers = [
     ],
     'previewImage': 'img/apartment-01.jpg',
     'location': {
-      'latitude': 52.370216,
-      'longitude': 4.895168,
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8
     },
   },
   {
     'type': 'hotel',
     'city': {
-      'name': 'Hamburg',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 53.516084,
-        'longitude': 9.981076,
+        'latitude': 52.3609553943508,
+        'longitude': 4.85309666406198,
         'zoom': 10
       },
     },
@@ -87,18 +87,18 @@ export const offers: Offers = [
     ],
     'previewImage': 'img/apartment-02.jpg',
     'location': {
-      'latitude': 52.354625,
-      'longitude': 9.981076,
+      'latitude': 52.3609553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8
     },
   },
   {
     'type': 'apartment',
     'city': {
-      'name': 'Paris',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 48.822860,
-        'longitude': 2.354483,
+        'latitude': 52.3909553943508,
+        'longitude': 4.929309666406198,
         'zoom': 10
       },
     },
@@ -132,18 +132,18 @@ export const offers: Offers = [
     ],
     'previewImage': 'img/apartment-02.jpg',
     'location': {
-      'latitude': 48.822860,
-      'longitude': 2.354483,
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
       'zoom': 8
     },
   },
   {
     'type': 'apartment',
     'city': {
-      'name': 'Brussels',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 50.812792,
-        'longitude': 4.336639,
+        'latitude': 52.3809553943508,
+        'longitude': 4.939309666406198,
         'zoom': 10
       },
     },
@@ -169,7 +169,7 @@ export const offers: Offers = [
       'name': 'Angelina',
       'isPro': true,
     },
-    'id': 3,
+    'id': 4,
     'images': [
       'img/apartment-01.jpg',
       'img/apartment-02.jpg',
@@ -177,8 +177,8 @@ export const offers: Offers = [
     ],
     'previewImage': 'img/apartment-02.jpg',
     'location': {
-      'latitude': 50.812792,
-      'longitude': 4.336639,
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
       'zoom': 8,
     },
   },

@@ -1,19 +1,49 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+import { OfferCardLocation} from '../../const';
 
 type OfferCardProps = {
+  location: OfferCardLocation;
   offer: Offer;
-  onMouseOverHandler: () => void;
+  onMouseEnter?: (id: number) => void;
+  onMouseLeave?: () => void;
 }
 
-function OfferCard({offer, onMouseOverHandler}: OfferCardProps ) {
+function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps ) {
   const {price, rating, type, title, id, isPremium, previewImage,} = offer;
 
+
+  const offerCardClass: string = classNames('place-card', {
+    'cities__card': location === OfferCardLocation.cities,
+    'near-places__card': location === OfferCardLocation.nearPlaces,
+  });
+
+  const onMouseEnterHandler = () => {
+    if (onMouseEnter) {
+      onMouseEnter(offer.id);
+    }
+  };
+
+  const onMouseLeaveHandler = () => {
+    if (onMouseLeave) {
+      onMouseLeave();
+    }
+  };
+
   return (
-    <article className="cities__card place-card" onMouseOver={onMouseOverHandler}>
-      <div className="place-card__mark">
-        {isPremium ? <span>Premium</span> : ''}
-      </div>
+    <article
+      className={offerCardClass}
+      onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
+    >
+      {
+        isPremium ?
+          <div className="place-card__mark">
+            <span>Premium</span>
+          </div>
+          : ''
+      }
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place" />
