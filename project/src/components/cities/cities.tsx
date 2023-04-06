@@ -1,7 +1,8 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import CitiesPlacesList from '../cities-places-list/cities-places-list';
 import { Offers, Offer } from '../../types/offer';
 import Map from '../map/map';
+import { PropertyMapLocation } from '../../const';
 
 type CitiesProps = {
   city: Offer['city'];
@@ -51,7 +52,7 @@ function Cities({city, offers, offersCount}: CitiesProps) :JSX.Element{
           <CitiesPlacesList offers={offers} onCityCardHover={onCityCardHover}/>
         </section>
         <div className="cities__right-section">
-          <Map city={city} offers={offers} selectedOffer={activeOffer}/>
+          <Map city={city} offers={offers} selectedOffer={activeOffer} propertyMapLocation={PropertyMapLocation.cities}/>
         </div>
       </div>
     </div>
