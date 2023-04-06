@@ -7,6 +7,8 @@ import { useParams } from 'react-router-dom';
 import ReviewsItem from '../../components/reviews-item/reviews-item';
 import ReviewForm from '../../components/reviews-form/reviews__form';
 import NearPlaces from '../../components/near-places/near-places';
+import Map from '../../components/map/map';
+import {PropertyMapLocation} from '../../const';
 
 type OfferPageProps = {
   offers: Offers;
@@ -137,7 +139,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
                 <ul className="reviews__list">
                   {
                     reviews.map((review) => <ReviewsItem review={review} key={review.id}/>)
@@ -146,8 +148,8 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <ReviewForm />
               </section>
             </div>
+            <Map offers={offers} selectedOffer={offer} propertyMapLocation={PropertyMapLocation.property} city={offer.city}/>
           </div>
-          <section className="property__map map"></section>
         </section>
         <div className="container">
           <section className="near-places places">
