@@ -1,6 +1,6 @@
 import Logo from '../../components/logo/logo';
-import {Link} from 'react-router-dom';
-import {Helmet} from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Offers, Offer } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { useParams } from 'react-router-dom';
@@ -8,7 +8,7 @@ import ReviewsItem from '../../components/reviews-item/reviews-item';
 import ReviewForm from '../../components/reviews-form/reviews__form';
 import NearPlaces from '../../components/near-places/near-places';
 import Map from '../../components/map/map';
-import {PropertyMapLocation} from '../../const';
+import { PropertyMapLocation } from '../../const';
 
 type OfferPageProps = {
   offers: Offers;
