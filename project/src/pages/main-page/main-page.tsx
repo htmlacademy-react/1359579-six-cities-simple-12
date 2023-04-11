@@ -1,15 +1,13 @@
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
-import { Offers, Offer } from '../../types/offer';
+import { Offers } from '../../types/offer';
 import Cities from '../../components/cities/cities';
 
 type PageMainProps = {
   offers: Offers;
-  city: Offer['city'];
-  offersCount: number;
 }
 
-function PageMain({city, offers, offersCount}: PageMainProps): JSX.Element {
+function PageMain({offers}: PageMainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -80,7 +78,7 @@ function PageMain({city, offers, offersCount}: PageMainProps): JSX.Element {
             </ul>
           </section>
         </div>
-        <Cities offers={offers} offersCount={offersCount} city={city}/>
+        <Cities offers={offers}/>
       </main>
     </div>
   );

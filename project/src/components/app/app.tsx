@@ -1,20 +1,17 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {HelmetProvider} from 'react-helmet-async';
-import {AppRoute} from '../../const';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { AppRoute } from '../../const';
 import PageMain from '../../pages/main-page/main-page';
 import PageLogin from '../../pages/login/login';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { Offers } from '../../types/offer';
-import { Reviews } from '../../types/review';
+import { useAppSelector } from '../../hooks';
+import { reviews } from '../../mocks/reviews';
 
-type AppPageProps = {
-  offers: Offers;
-  reviews: Reviews;
-  offersCount: number;
-}
-
-function App({offersCount, offers, reviews}: AppPageProps): JSX.Element {
+function App(): JSX.Element {
+  const currentСity = useAppSelector((state) => state.cityName);
+  const offers = useAppSelector((state) => state.offers);
+  const offersCity = offers.filter((offer) => offer.city.name === currentСity);
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -22,11 +19,7 @@ function App({offersCount, offers, reviews}: AppPageProps): JSX.Element {
           <Route
             path="/"
             element={
-              <PageMain
-                offers={offers}
-                offersCount={offersCount}
-                city={offers[0].city}
-              />
+              <PageMain offers={offersCity}/>
             }
           />
           <Route
@@ -36,9 +29,8 @@ function App({offersCount, offers, reviews}: AppPageProps): JSX.Element {
           <Route
             path={AppRoute.Property}
             element={
-              <OfferPage
+              <OfferPage reviews={reviews}
                 offers={offers}
-                reviews={reviews}
               />
             }
           />

@@ -5,12 +5,10 @@ import Map from '../map/map';
 import { PropertyMapLocation } from '../../const';
 
 type CitiesProps = {
-  city: Offer['city'];
   offers: Offers;
-  offersCount: number;
 }
 
-function Cities({city, offers, offersCount}: CitiesProps) :JSX.Element{
+function Cities({ offers}: CitiesProps) :JSX.Element{
   const [activeOffer, setActiveOffer] = useState<Offer | undefined>(
     undefined
   );
@@ -25,7 +23,7 @@ function Cities({city, offers, offersCount}: CitiesProps) :JSX.Element{
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+          <b className="places__found">{offers.length} places to stay in {offers[0].city.name}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -52,7 +50,7 @@ function Cities({city, offers, offersCount}: CitiesProps) :JSX.Element{
           <CitiesPlacesList offers={offers} onCityCardHover={onCityCardHover}/>
         </section>
         <div className="cities__right-section">
-          <Map city={city} offers={offers} selectedOffer={activeOffer} propertyMapLocation={PropertyMapLocation.cities}/>
+          <Map city={offers[0].city} offers={offers} selectedOffer={activeOffer} propertyMapLocation={PropertyMapLocation.cities}/>
         </div>
       </div>
     </div>
