@@ -2,6 +2,7 @@ import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { OfferCardLocation} from '../../const';
+import { getPlaceRating } from '../../const';
 
 type OfferCardProps = {
   location: OfferCardLocation;
@@ -60,7 +61,7 @@ function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${Math.round(rating) * 100 / 5}%` }}></span>
+            <span style={{ width: `${getPlaceRating(rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

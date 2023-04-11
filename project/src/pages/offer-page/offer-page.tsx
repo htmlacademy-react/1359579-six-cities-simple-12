@@ -9,6 +9,7 @@ import ReviewForm from '../../components/reviews-form/reviews__form';
 import NearPlaces from '../../components/near-places/near-places';
 import Map from '../../components/map/map';
 import { PropertyMapLocation } from '../../const';
+import { getPlaceRating } from '../../const';
 
 type OfferPageProps = {
   offers: Offers;
@@ -89,7 +90,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${Math.round(rating) * 100 / 5}%`}}></span>
+                  <span style={{width: `${getPlaceRating(rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -148,7 +149,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <ReviewForm />
               </section>
             </div>
-            <Map offers={offers} selectedOffer={offer} propertyMapLocation={PropertyMapLocation.property} city={offer.city}/>
+            <Map city={offer.city} offers={offers} selectedOffer={offer} propertyMapLocation={PropertyMapLocation.property} />
           </div>
         </section>
         <div className="container">

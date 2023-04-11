@@ -9,9 +9,10 @@ import { useAppSelector } from '../../hooks';
 import { reviews } from '../../mocks/reviews';
 
 function App(): JSX.Element {
-  const currentСity = useAppSelector((state) => state.cityName);
+  const cityName = useAppSelector((state) => state.cityName);
   const offers = useAppSelector((state) => state.offers);
-  const offersCity = offers.filter((offer) => offer.city.name === currentСity);
+  const offersCity = offers.filter((offer) => offer.city.name === cityName);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -19,7 +20,9 @@ function App(): JSX.Element {
           <Route
             path="/"
             element={
-              <PageMain offers={offersCity}/>
+              <PageMain offers={offersCity}
+                currentCity={cityName}
+              />
             }
           />
           <Route
@@ -29,13 +32,14 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Property}
             element={
-              <OfferPage reviews={reviews}
+              <OfferPage
+                reviews={reviews}
                 offers={offers}
               />
             }
           />
           <Route
-            path={AppRoute.NotFound}
+            path='*'
             element={<NotFoundScreen />}
           />
         </Routes>
