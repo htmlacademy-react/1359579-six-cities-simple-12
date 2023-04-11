@@ -20,9 +20,7 @@ function App(): JSX.Element {
           <Route
             path="/"
             element={
-              <PageMain offers={offersCity}
-                currentCity={cityName}
-              />
+              <PageMain offers={offersCity} />
             }
           />
           <Route
