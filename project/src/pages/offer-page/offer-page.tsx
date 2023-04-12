@@ -25,7 +25,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
     throw new Error('This URL doesn`t exist.');
   }
 
-  const {type, title, description, isPremium, rating, bedrooms, maxAdults, price, goods, owner, images,} = offer;
+  const {type, title, description, isPremium, rating, bedrooms, maxAdults, price, goods, host, images,} = offer;
 
   return (
 
@@ -114,7 +114,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {goods.map((good) => (
-                    <li className="property__inside-item" key="good">
+                    <li className="property__inside-item" key={good}>
                       {good}
                     </li>
                   ))};
@@ -124,13 +124,13 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={owner.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {owner.name}
+                    {host.name}
                   </span>
                   <span className="property__user-status">
-                    {owner.isPro ? 'Pro' : ''}
+                    {host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">

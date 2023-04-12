@@ -20,11 +20,11 @@ export type Offer = {
   maxAdults: number;
   price: number;
   goods: string[];
-  owner: {
+  host: {
     id: number;
-    avatarUrl: string;
     name: string;
     isPro: boolean;
+    avatarUrl: string;
   };
   id: number;
   images: string[];
