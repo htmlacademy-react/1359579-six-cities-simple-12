@@ -10,6 +10,8 @@ type PageMainProps = {
 }
 
 function PageMain({ offers }: PageMainProps): JSX.Element {
+  const currentCity = offers[0]?.city;
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -46,7 +48,7 @@ function PageMain({ offers }: PageMainProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList currentLocation={offers[0].city.name}/>
+            <LocationsList currentLocation={currentCity.name}/>
           </section>
         </div>
         <div className="cities">
