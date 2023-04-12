@@ -4,10 +4,11 @@ import {Helmet} from 'react-helmet-async';
 function Login(): JSX.Element {
   return (
     <div className="page page--gray page--login">
-      <Helmet>
-        <title>Six cities, sign into your account</title>
-      </Helmet>
+
       <header className="header">
+        <Helmet>
+          <title>Six cities, sign into your account</title>
+        </Helmet>
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">

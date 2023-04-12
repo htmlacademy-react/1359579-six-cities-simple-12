@@ -1,6 +1,6 @@
 import Logo from '../../components/logo/logo';
-import {Link} from 'react-router-dom';
-import {Helmet} from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Offers, Offer } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { useParams } from 'react-router-dom';
@@ -8,7 +8,8 @@ import ReviewsItem from '../../components/reviews-item/reviews-item';
 import ReviewForm from '../../components/reviews-form/reviews__form';
 import NearPlaces from '../../components/near-places/near-places';
 import Map from '../../components/map/map';
-import {PropertyMapLocation} from '../../const';
+import { PropertyMapLocation } from '../../const';
+import { getPlaceRating } from '../../const';
 
 type OfferPageProps = {
   offers: Offers;
@@ -24,7 +25,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
     throw new Error('This URL doesn`t exist.');
   }
 
-  const {type, title, description, isPremium, rating, bedrooms, maxAdults, price, goods, owner, images,} = offer;
+  const {type, title, description, isPremium, rating, bedrooms, maxAdults, price, goods, host, images,} = offer;
 
   return (
 
@@ -89,7 +90,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${Math.round(rating) * 100 / 5}%`}}></span>
+                  <span style={{width: `${getPlaceRating(rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -113,7 +114,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
                   {goods.map((good) => (
-                    <li className="property__inside-item" key="good">
+                    <li className="property__inside-item" key={good}>
                       {good}
                     </li>
                   ))};
@@ -123,13 +124,13 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={owner.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {owner.name}
+                    {host.name}
                   </span>
                   <span className="property__user-status">
-                    {owner.isPro ? 'Pro' : ''}
+                    {host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
@@ -148,7 +149,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <ReviewForm />
               </section>
             </div>
-            <Map offers={offers} selectedOffer={offer} propertyMapLocation={PropertyMapLocation.property} city={offer.city}/>
+            <Map city={offer.city} offers={offers} selectedOffer={offer} propertyMapLocation={PropertyMapLocation.property} />
           </div>
         </section>
         <div className="container">

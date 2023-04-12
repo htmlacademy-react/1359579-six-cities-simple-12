@@ -2,12 +2,12 @@ import {useRef, useEffect} from 'react';
 import classNames from 'classnames';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap';
-import { Offers, Offer} from '../../types/offer';
+import { Offers, Offer, City} from '../../types/offer';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, PropertyMapLocation} from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: Offer['city'];
+  city: City;
   offers: Offers;
   selectedOffer: Offer | undefined;
   propertyMapLocation: PropertyMapLocation;
@@ -58,7 +58,6 @@ function Map({city, offers, selectedOffer, propertyMapLocation} : MapProps): JSX
       ref={mapRef}
       style={{width:'100%'}}
     >
-
     </section>
   );
 }
