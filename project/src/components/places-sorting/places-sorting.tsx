@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import classNames from 'classnames';
+import { Offers } from '../../types/offer';
+import { SortTypes } from '../../types/filtration';
 
 type PlacesSortingProps = {
-  sortTypes: string;
-  sortType: string;
-  index: number;
-  type: string;
-  setSortType: (type: string) => void;
+  offers: Offers;
+  locationSortType: string;
+  setLocationSortType: (type: string) => void;
 }
 
-function PlascesSorting ({sortTypes, sortType, index, type, setSortType}: PlacesSortingProps): JSX.Element {
-  const SortTypes = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first',];
+function PlacesSorting ({offers, locationSortType, setLocationSortType}: PlacesSortingProps): JSX.Element {
 
   const [isSortingShowed, setIsSortingShowed] = useState<boolean>(false);
 
@@ -18,8 +17,8 @@ function PlascesSorting ({sortTypes, sortType, index, type, setSortType}: Places
     'places__options--opened': isSortingShowed,
   });
 
-  const getSortHandler = () => {
-    setSortType(type);
+  const getSortHandler = (type: string) => {
+    setLocationSortType(type);
     setIsSortingShowed(!isSortingShowed);
   };
 
@@ -31,19 +30,19 @@ function PlascesSorting ({sortTypes, sortType, index, type, setSortType}: Places
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0} onClick={sortOpeningHandler}>
-        &nbsp;{sortTypes}
+        &nbsp;{locationSortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
       <ul className={placesOptionsClass}>
         {
-          SortTypes.map(() => (
+          SortTypes.map((sortType: string, index: number) => (
             <li
               className="places__option"
               tabIndex={index}
               key={sortType}
-              onClick={() => getSortHandler()}
+              onClick={() => getSortHandler(sortType)}
             >
               {sortType}
             </li>
@@ -54,4 +53,4 @@ function PlascesSorting ({sortTypes, sortType, index, type, setSortType}: Places
   );
 }
 
-export default PlascesSorting;
+export default PlacesSorting;
