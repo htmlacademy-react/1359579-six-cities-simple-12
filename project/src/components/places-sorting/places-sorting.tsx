@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import classNames from 'classnames';
 import { Offers } from '../../types/offer';
-import { SortTypes } from '../../types/filtration';
+import { SortTypes } from './filtration';
 
 type PlacesSortingProps = {
   offers: Offers;

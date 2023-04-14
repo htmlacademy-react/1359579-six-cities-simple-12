@@ -1,4 +1,4 @@
-import { Offer, Offers } from './offer';
+import { Offer, Offers } from '../../types/offer';
 
 export const SortTypes = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first',];
 
