@@ -10,15 +10,9 @@ export type City = {
 }
 
 export type Offer = {
-  type: string;
-  city: City;
-  title: string;
-  description: string;
-  isPremium: boolean;
-  rating: number;
   bedrooms: number;
-  maxAdults: number;
-  price: number;
+  city: City;
+  description: string;
   goods: string[];
   host: {
     id: number;
@@ -28,9 +22,14 @@ export type Offer = {
   };
   id: number;
   images: string[];
-  previewImage: string;
+  isPremium: boolean;
   location: Location;
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
 };
 
 export type Offers = Offer[];
-
