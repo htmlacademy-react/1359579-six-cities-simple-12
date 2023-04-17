@@ -7,11 +7,22 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { useAppSelector } from '../../hooks';
 import { reviews } from '../../mocks/reviews';
+import ScreenLoading from '../../pages/screen-loading/screen-loading';
 
 function App(): JSX.Element {
   const cityName = useAppSelector((state) => state.cityName);
+
   const offers = useAppSelector((state) => state.offers);
+
   const offersCity = offers.filter((offer) => offer.city.name === cityName);
+
+  const isCompletionOfOffers = useAppSelector((state) => state.isCompletionOfOffers);
+
+  if (isCompletionOfOffers) {
+    return (
+      <ScreenLoading />
+    );
+  }
 
   return (
     <HelmetProvider>
