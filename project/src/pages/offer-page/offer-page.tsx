@@ -25,7 +25,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
     throw new Error('This URL doesn`t exist.');
   }
 
-  const {type, title, description, isPremium, rating, bedrooms, maxAdults, price, goods, host, images,} = offer;
+  const {images, isPremium, type, title, rating, bedrooms, maxAdults, price, goods, host, description,} = offer;
 
   return (
 

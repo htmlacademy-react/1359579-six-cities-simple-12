@@ -1,6 +1,6 @@
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import classNames from 'classnames';
-import {Icon, Marker} from 'leaflet';
+import {Icon, Marker, LayerGroup} from 'leaflet';
 import useMap from '../../hooks/useMap';
 import { Offers, Offer, City} from '../../types/offer';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, PropertyMapLocation} from '../../const';
@@ -33,24 +33,39 @@ function Map({city, offers, selectedOffer, propertyMapLocation} : MapProps): JSX
     'property__map': propertyMapLocation === PropertyMapLocation.property,
   });
 
+  const [markerLayers, ] = useState<LayerGroup>(new LayerGroup());
+
+  useEffect(
+    () => {
+      if (map) {
+        map.flyTo({
+          lat: city.location.latitude,
+          lng: city.location.longitude,
+        },
+        city.location.zoom
+        );
+      }
+    }, [map,city]);
+
   useEffect (() => {
     if (map) {
+      markerLayers.clearLayers();
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-
         marker
           .setIcon(
             selectedOffer !== undefined && selectedOffer.id === offer.id
               ? currentCustomIcon
               : defaultCustomIcon
           )
-          .addTo(map);
+          .addTo(markerLayers);
       });
+      markerLayers.addTo(map);
     }
-  }, [map, offers, selectedOffer]);
+  }, [map, offers, selectedOffer, markerLayers]);
 
   return (
     <section
