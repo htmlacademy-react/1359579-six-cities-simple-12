@@ -35,5 +35,6 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-simple-12';
 
 export const getPlaceRating = (rating: number): number => Math.round(rating) * 100 / 5;
