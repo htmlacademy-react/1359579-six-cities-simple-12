@@ -25,7 +25,7 @@ export enum PropertyMapLocation {
   property = 'property',
 }
 
-export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf,'];
+export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf',];
 
 export const MIN_SYMBOL_COMMENT = 50;
 export const MAX_SYMBOL_COMMENT = 300;
