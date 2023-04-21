@@ -8,9 +8,7 @@ const Action = {
   SET_ERROR: 'SET_ERROR',
 };
 
-const cityChange = createAction<string>(Action.CITY_CHANGE);
-const fillOffers = createAction<Offers>(Action.FILL_OFFERS);
-const setOffersStatus = createAction<boolean>(Action.SET_OFFERS_STATUS);
-const setError = createAction<string | null>(Action.SET_ERROR);
-
-export {Action, cityChange, fillOffers, setOffersStatus, setError};
+export const cityChange = createAction<string>(Action.CITY_CHANGE);
+export const fillOffers = createAction<Offers>(Action.FILL_OFFERS);
+export const setOffersStatus = createAction<boolean>(Action.SET_OFFERS_STATUS);
+export const setError = createAction<string | null>(Action.SET_ERROR);

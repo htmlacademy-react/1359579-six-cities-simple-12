@@ -25,6 +25,8 @@ export enum PropertyMapLocation {
   property = 'property',
 }
 
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf',];
 
 export const MIN_SYMBOL_COMMENT = 50;

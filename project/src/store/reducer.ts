@@ -17,7 +17,7 @@ const initialState : InitialStateType = {
   error: null,
 };
 
-const reducer = createReducer(initialState, (builder) => {
+export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(cityChange, (state, action) => {
       state.cityName = action.payload;
@@ -36,4 +36,3 @@ const reducer = createReducer(initialState, (builder) => {
     });
 });
 
-export {reducer};
