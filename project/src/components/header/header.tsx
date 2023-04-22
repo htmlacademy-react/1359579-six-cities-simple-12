@@ -1,7 +1,12 @@
+import { useAppSelector } from '../../hooks';
 import Logo from '../../components/logo/logo';
+import { AuthorizationStatus } from '../../const';
 import NavProfNoAuth from '../../components/navigation-profile-no-authentication/navigation-profile-no-authentication';
+import NavProfAuth from '../navigation-profile-authentication/navigation-profile-authentication';
 
 function Header(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.userData);
 
   return (
     <header className="header">
@@ -12,7 +17,13 @@ function Header(): JSX.Element {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              <NavProfNoAuth />
+              {
+                (authorizationStatus === AuthorizationStatus.Auth && user)
+                  ?
+                  <NavProfAuth userData={user} />
+                  :
+                  <NavProfNoAuth />
+              }
             </ul>
           </nav>
         </div>
