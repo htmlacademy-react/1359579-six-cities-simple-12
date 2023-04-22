@@ -7,7 +7,7 @@ import { AppRoute, APIRoute, TIMEOUT_SHOW_ERROR, AuthorizationStatus } from '../
 import {store} from './';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
-import { saveToken } from '../services/token';
+import { saveToken, dropToken } from '../services/token';
 
 export const clearErrorAction = createAsyncThunk(
   'clearError',
@@ -66,4 +66,19 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     dispatch(authRequired(AuthorizationStatus.Auth));
     dispatch(routeRedirection(AppRoute.Root));
   },
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'user/logout',
+  async(_arg, {dispatch, extra: api}) => {
+    await api.delete(APIRoute.Logout);
+    dropToken();
+    dispatch(updateUser(null));
+    dispatch(authRequired(AuthorizationStatus.NoAuth));
+  }
 );
