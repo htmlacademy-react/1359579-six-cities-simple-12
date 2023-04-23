@@ -1,6 +1,7 @@
 import Header from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
-import { Offers, Offer } from '../../types/offer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
 import { Reviews } from '../../types/review';
 import { useParams } from 'react-router-dom';
 import ReviewsItem from '../../components/reviews-item/reviews-item';
@@ -9,22 +10,34 @@ import NearPlaces from '../../components/near-places/near-places';
 import Map from '../../components/map/map';
 import { PropertyMapLocation } from '../../const';
 import { getPlaceRating } from '../../const';
+import { fetchOfferActiveAction, fetchOffersNearbyActiveAction, } from '../../store/api-actions';
+import NotFoundPage from '../not-found-screen/not-found-screen';
+import ScreenLoading from '../screen-loading/screen-loading';
 
 type OfferPageProps = {
-  offers: Offers;
   reviews: Reviews;
 }
+function OfferPage({ reviews }: OfferPageProps): JSX.Element {
 
-function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
   const {id} = useParams();
+  const activeOfferId = Number(id);
+  const offerActive = useAppSelector((state) => state.activeOffer);
+  const offersNearbyActive = useAppSelector((state) => state.activeOffersNearby);
+  const dispatch = useAppDispatch();
 
-  const offer: Offer | undefined = offers.find((flat) => flat.id === Number(id));
+  useEffect(() => {
+    dispatch(fetchOfferActiveAction(activeOfferId));
+    dispatch(fetchOffersNearbyActiveAction(activeOfferId));
 
-  if (!offer) {
-    throw new Error('This URL doesn`t exist.');
+  }, [dispatch, activeOfferId]);
+
+  if (isNaN(activeOfferId)) {
+    return <NotFoundPage />;
   }
 
-  const {images, isPremium, type, title, rating, bedrooms, maxAdults, price, goods, host, description,} = offer;
+  if (!offerActive) {
+    return <ScreenLoading />;
+  }
 
   return (
 
@@ -42,7 +55,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                images.map((image) => (
+                offerActive.images.map((image) => (
                   <div className="property__image-wrapper" key={image}>
                     <img className="property__image" src={image} alt="Studio" />
                   </div>
@@ -53,7 +66,7 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
           <div className="property__container container">
             <div className="property__wrapper">
               {
-                isPremium ?
+                offerActive.isPremium ?
                   <div className="place-card__mark">
                     <span>Premium</span>
                   </div>
@@ -61,35 +74,35 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
               }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {title}
+                  {offerActive.title}
                 </h1>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: `${getPlaceRating(rating)}%` }}></span>
+                  <span style={{width: `${getPlaceRating(offerActive.rating)}%` }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">{rating}</span>
+                <span className="property__rating-value rating__value">{offerActive.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {type}
+                  {offerActive.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {bedrooms} Bedrooms
+                  {offerActive.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {maxAdults} adults
+                  Max {offerActive.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{price}</b>
+                <b className="property__price-value">&euro;{offerActive.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {goods.map((good) => (
+                  {offerActive.goods.map((good) => (
                     <li className="property__inside-item" key={good}>
                       {good}
                     </li>
@@ -100,18 +113,18 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={offerActive.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {host.name}
+                    {offerActive.host.name}
                   </span>
                   <span className="property__user-status">
-                    {host.isPro ? 'Pro' : ''}
+                    {offerActive.host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {description}
+                    {offerActive.description}
                   </p>
                 </div>
               </div>
@@ -125,13 +138,13 @@ function OfferPage({ offers, reviews}: OfferPageProps): JSX.Element {
                 <ReviewForm />
               </section>
             </div>
-            <Map city={offer.city} offers={offers} selectedOffer={offer} propertyMapLocation={PropertyMapLocation.property} />
+            <Map city={offerActive.city} offers={offersNearbyActive} selectedOffer={offerActive} propertyMapLocation={PropertyMapLocation.property} />
           </div>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <NearPlaces offers={offers} />
+            <NearPlaces offers={offersNearbyActive} />
           </section>
         </div>
       </main>

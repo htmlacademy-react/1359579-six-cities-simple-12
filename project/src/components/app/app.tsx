@@ -43,7 +43,6 @@ function App(): JSX.Element {
             element={
               <OfferPage
                 reviews={reviews}
-                offers={offers}
               />
             }
           />
