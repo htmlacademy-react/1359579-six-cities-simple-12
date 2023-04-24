@@ -10,9 +10,13 @@ import {
   setError,
   authRequired,
   updateUser,
+  newCommentOffer,
+  reviewsOffer,
 } from './action';
 import { Offers, Offer } from '../types/offer';
 import { UserData } from '../types/user-data';
+import { Reviews } from '../types/review';
+import { ReviewData } from '../types/review-data';
 
 type InitialStateType = {
   cityName: string;
@@ -24,6 +28,8 @@ type InitialStateType = {
   error: string | null;
   authorizationStatus: AuthorizationStatus;
   userData: UserData | null;
+  newComment: ReviewData | null;
+  reviews: Reviews;
 }
 
 const initialState : InitialStateType = {
@@ -36,6 +42,8 @@ const initialState : InitialStateType = {
   error: null,
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: null,
+  newComment: null,
+  reviews: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -68,12 +76,20 @@ export const reducer = createReducer(initialState, (builder) => {
       state.error = action.payload;
     })
 
-    .addCase(authRequired, (state, action) => {
-      state.authorizationStatus = action.payload;
-    })
-
     .addCase(updateUser, (state, action) => {
       state.userData = action.payload;
+    })
+
+    .addCase(newCommentOffer, (state, action) => {
+      state.newComment = action.payload;
+    })
+
+    .addCase(reviewsOffer, (state, action) => {
+      state.reviews = action.payload;
+    })
+
+    .addCase(authRequired, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
