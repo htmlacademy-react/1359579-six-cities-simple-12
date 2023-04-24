@@ -10,7 +10,7 @@ import {
   setError,
   authRequired,
   updateUser,
-  newCommentOffer,
+  newReviewOffer,
   reviewsOffer,
 } from './action';
 import { Offers, Offer } from '../types/offer';
@@ -28,7 +28,7 @@ type InitialStateType = {
   error: string | null;
   authorizationStatus: AuthorizationStatus;
   userData: UserData | null;
-  newComment: ReviewData | null;
+  newReview: ReviewData | null;
   reviews: Reviews;
 }
 
@@ -42,7 +42,7 @@ const initialState : InitialStateType = {
   error: null,
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: null,
-  newComment: null,
+  newReview: null,
   reviews: [],
 };
 
@@ -80,8 +80,8 @@ export const reducer = createReducer(initialState, (builder) => {
       state.userData = action.payload;
     })
 
-    .addCase(newCommentOffer, (state, action) => {
-      state.newComment = action.payload;
+    .addCase(newReviewOffer, (state, action) => {
+      state.newReview = action.payload;
     })
 
     .addCase(reviewsOffer, (state, action) => {

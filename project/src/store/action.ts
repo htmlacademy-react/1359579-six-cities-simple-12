@@ -17,7 +17,7 @@ const Action = {
   AUTH_REQUIRED: 'AUTH_REQUIRED',
   UPDATE_USER: 'UPDATE_USER',
   ROUTE_REDIRECTION: 'ROUTE_REDIRECTION',
-  NEW_COMMENT_OFFER: 'NEW_COMMENT_OFFER',
+  NEW_REVIEW_OFFER: 'NEW_REVIEW_OFFER',
   REVIEWS_OFFER: 'REVIEWS_OFFER',
 };
 
@@ -41,6 +41,6 @@ export const updateUser = createAction<UserData | null>(Action.UPDATE_USER);
 
 export const routeRedirection = createAction<AppRoute>(Action.ROUTE_REDIRECTION);
 
-export const newCommentOffer = createAction<ReviewData>(Action.NEW_COMMENT_OFFER);
+export const newReviewOffer = createAction<ReviewData>(Action.NEW_REVIEW_OFFER);
 
 export const reviewsOffer = createAction<Reviews>(Action.REVIEWS_OFFER);
