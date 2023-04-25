@@ -8,6 +8,7 @@ function NotFoundPage(): JSX.Element {
       <Helmet>
         <title>This page could not be found!</title>
       </Helmet>
+
       <Header />
 
       <main className="page__main page__main--index page__main--index-empty">

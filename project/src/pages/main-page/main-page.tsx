@@ -1,9 +1,10 @@
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import { Offers} from '../../types/offer';
 import Cities from '../../components/cities/cities';
 import LocationsList from '../../components/locations-list/locations-list';
 import MainEmpty from '../../pages/main-empty/main-empty';
 import Header from '../../components/header/header';
+import classNames from 'classnames';
 
 type PageMainProps = {
   offers: Offers;
@@ -12,6 +13,10 @@ type PageMainProps = {
 function PageMain({ offers }: PageMainProps): JSX.Element {
   const currentCity = offers[0]?.city;
 
+  const mainPageMain = classNames('page__main page__main--index', {
+    'page__main--index-empty': offers.length === 0,
+  });
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -19,7 +24,7 @@ function PageMain({ offers }: PageMainProps): JSX.Element {
       </Helmet>
       <Header />
 
-      <main className="page__main page__main--index">
+      <main className={mainPageMain}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -28,8 +33,7 @@ function PageMain({ offers }: PageMainProps): JSX.Element {
         </div>
         <div className="cities">
           {
-            offers
-              ?
+            offers.length !== 0 ?
               <Cities offers={offers}/>
               :
               <MainEmpty />
