@@ -6,19 +6,23 @@ import PageLogin from '../../pages/login/login';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import { useAppSelector } from '../../hooks';
-import { reviews } from '../../mocks/reviews';
 import ScreenLoading from '../../pages/screen-loading/screen-loading';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import {
+  getCityName,
+  getOffers,
+  getCompletionOfOffers
+} from '../../store/offer-process/selectors';
 
 function App(): JSX.Element {
-  const cityName = useAppSelector((state) => state.cityName);
+  const cityName = useAppSelector(getCityName);
 
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
 
   const offersCity = offers.filter((offer) => offer.city.name === cityName);
 
-  const isCompletionOfOffers = useAppSelector((state) => state.isCompletionOfOffers);
+  const isCompletionOfOffers = useAppSelector(getCompletionOfOffers);
 
   if (isCompletionOfOffers) {
     return (
@@ -43,9 +47,7 @@ function App(): JSX.Element {
           <Route
             path={AppRoute.Property}
             element={
-              <OfferPage
-                reviews={reviews}
-              />
+              <OfferPage/>
             }
           />
           <Route

@@ -2,10 +2,9 @@ import Header from '../../components/header/header';
 import { Helmet } from 'react-helmet-async';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { Reviews } from '../../types/review';
 import { useParams } from 'react-router-dom';
 import ReviewsItem from '../../components/reviews-item/reviews-item';
-import ReviewForm from '../../components/reviews-form/reviews__form';
+import ReviewForm from '../../components/reviews-form/reviews-form';
 import NearPlaces from '../../components/near-places/near-places';
 import Map from '../../components/map/map';
 import { PropertyMapLocation } from '../../const';
@@ -13,16 +12,24 @@ import { getPlaceRating } from '../../const';
 import { fetchOfferActiveAction, fetchOffersNearbyActiveAction, } from '../../store/api-actions';
 import NotFoundPage from '../not-found-screen/not-found-screen';
 import ScreenLoading from '../screen-loading/screen-loading';
+import {
+  getActiveOffer,
+  getActiveOfferStatus,
+  getActiveOffersNearby,
+  getReviews
+} from '../../store/offer-process/selectors';
+// import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
-type OfferPageProps = {
-  reviews: Reviews;
-}
-function OfferPage({ reviews }: OfferPageProps): JSX.Element {
+function OfferPage(): JSX.Element {
 
-  const {id} = useParams();
+  const { id } = useParams();
   const activeOfferId = Number(id);
-  const offerActive = useAppSelector((state) => state.activeOffer);
-  const offersNearbyActive = useAppSelector((state) => state.activeOffersNearby);
+  const offerActive = useAppSelector(getActiveOffer);
+  const offersNearbyActive = useAppSelector(getActiveOffersNearby);
+  const isActiveOfferStatus = useAppSelector(getActiveOfferStatus);
+
+  const reviews = useAppSelector(getReviews);
+  // const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,7 +42,7 @@ function OfferPage({ reviews }: OfferPageProps): JSX.Element {
     return <NotFoundPage />;
   }
 
-  if (!offerActive) {
+  if (!offerActive || !isActiveOfferStatus) {
     return <ScreenLoading />;
   }
 
