@@ -1,11 +1,15 @@
+import { useRef, FormEvent } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Navigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {Helmet} from 'react-helmet-async';
-import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import { useRef, FormEvent } from 'react';
+import { AppRoute, AuthorizationStatus, CITY_NAMES, LocationItem } from '../../const';
 import { AuthData } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import LocationsItem from '../../components/locations-item/locations-item';
+import { cityChange } from '../../store/offer-process/offer-process';
+import { routeRedirection } from '../../store/action';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -17,7 +21,8 @@ function Login(): JSX.Element {
     return pattern.test(password);
   };
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
   if (authorizationStatus === AuthorizationStatus.Auth) {
     return <Navigate to={AppRoute.Root}/>;
   }
@@ -29,16 +34,17 @@ function Login(): JSX.Element {
   const submitHandle = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (
-      loginRef.current !== null &&
-      (passwordRef.current !== null && isValidPassword(passwordRef.current.value))
-    ) {
+    if (loginRef.current !== null &&
+      (passwordRef.current !== null && isValidPassword(passwordRef.current.value))) {
+
       onSubmit({
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
     }
   };
+
+  const randomCityName = CITY_NAMES[Math.floor(Math.random() * CITY_NAMES.length)];
 
   return (
     <div className="page page--gray page--login">
@@ -73,9 +79,14 @@ function Login(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
-              </a>
+              <LocationsItem
+                position={ LocationItem.login }
+                locationsItemCity={ randomCityName }
+                onClick={ (locationsItemCity) => {
+                  dispatch(cityChange(locationsItemCity));
+                  dispatch(routeRedirection(AppRoute.Root));
+                }}
+              />
             </div>
           </section>
         </div>

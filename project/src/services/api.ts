@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } f
 import {getToken} from './token';
 import {BACKEND_URL, REQUEST_TIMEOUT} from '../const';
 import { StatusCodes } from 'http-status-codes';
-import { processErrorHandle } from './process-error-handle';
+import { toast } from 'react-toastify';
 
 const StatusCodeDisplay: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -24,6 +24,7 @@ export const createAPI = (): AxiosInstance => {
       if (token && config.headers) {
         config.headers['x-token'] = token;
       }
+
       return config;
     },
   );
@@ -31,10 +32,12 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError <{error: string}>) => {
+    (error: AxiosError<{error: string}>) => {
       if (error.response && displayError(error.response)) {
-        processErrorHandle(error.response.data.error);
+        toast.warn(error.response.data.error);
       }
+
+      throw error;
     }
   );
 

@@ -3,14 +3,13 @@ import OfferCard from '../offer-card/offer-card';
 import { Offers } from '../../types/offer';
 import { OfferCardLocation } from '../../const';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
-import { filtrationByType } from '../places-sorting/filtration';
-
+import { SortTypes, filtrationByType } from '../places-sorting/filtration';
 type CitiesPlacesListProps = {
   offers: Offers;
   onCityCardHover: (id: number | null) => void;
 }
 
-function CitiesPlacesList({offers, onCityCardHover}: CitiesPlacesListProps): JSX.Element {
+function CitiesPlacesList({ offers, onCityCardHover }: CitiesPlacesListProps): JSX.Element {
   const [locationSortType, setLocationSortType] = useState<string>('Popular');
 
   const sortOffers = filtrationByType(offers, locationSortType);
@@ -18,9 +17,9 @@ function CitiesPlacesList({offers, onCityCardHover}: CitiesPlacesListProps): JSX
   return (
     <div>
       <PlacesSorting
-        locationSortType={locationSortType}
+        currentLocationSortType={locationSortType}
+        locationSortType={ SortTypes }
         setLocationSortType={setLocationSortType}
-        offers={offers}
       />
 
       <div className="cities__places-list places__list tabs__content">

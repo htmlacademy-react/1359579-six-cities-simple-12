@@ -25,7 +25,7 @@ const currentCustomIcon = new Icon ({
   iconAnchor: [20, 40]
 });
 
-function Map({city, offers, selectedOffer, propertyMapLocation} : MapProps): JSX.Element {
+function Map({ city, offers, selectedOffer, propertyMapLocation } : MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const mapClass = classNames('map', {
@@ -69,9 +69,9 @@ function Map({city, offers, selectedOffer, propertyMapLocation} : MapProps): JSX
 
   return (
     <section
-      className={mapClass}
-      ref={mapRef}
-      style={{width:'100%'}}
+      className={ mapClass }
+      ref={ mapRef }
+      style={{ width:'100%' }}
     >
     </section>
   );
