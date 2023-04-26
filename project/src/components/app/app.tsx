@@ -1,14 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import browserHistory from '../../browser-history';
 import { AppRoute } from '../../const';
+import { useAppSelector } from '../../hooks';
 import PageMain from '../../pages/main-page/main-page';
 import Login from '../../pages/login/login';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
-import { useAppSelector } from '../../hooks';
 import ScreenLoading from '../../pages/screen-loading/screen-loading';
 import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
+
 import {
   getCityName,
   getOffers,
