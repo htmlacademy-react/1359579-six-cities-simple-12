@@ -19,7 +19,7 @@ export const offerProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
-    changeCity: (state, action: PayloadAction<string>) => {
+    cityChange: (state, action: PayloadAction<string>) => {
       state.cityName = action.payload;
     }
   },
@@ -35,7 +35,6 @@ export const offerProcess = createSlice({
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isCompletionOfOffers = true;
       })
-
       .addCase(fetchOfferActiveAction.pending, (state) => {
         state.isActiveOfferStatus = false;
       })
@@ -46,18 +45,15 @@ export const offerProcess = createSlice({
       .addCase(fetchOfferActiveAction.rejected, (state) => {
         state.isActiveOfferStatus = true;
       })
-
       .addCase(fetchOffersNearbyActiveAction.pending, (state) => {
         state.isCompletionOfOffers = false;
       })
       .addCase(fetchOffersNearbyActiveAction.fulfilled, (state, action) => {
         state.activeOffersNearby = action.payload;
       })
-
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
-
       .addCase(fetchAddNewReview.pending, (state) => {
         state.isSuccessReviewAdded = false;
       })
@@ -70,4 +66,4 @@ export const offerProcess = createSlice({
   }
 });
 
-export const { changeCity } = offerProcess.actions;
+export const { cityChange } = offerProcess.actions;

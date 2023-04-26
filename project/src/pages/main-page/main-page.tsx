@@ -8,11 +8,10 @@ import classNames from 'classnames';
 
 type PageMainProps = {
   offers: Offers;
+  currentCity: string;
 }
 
-function PageMain({ offers }: PageMainProps): JSX.Element {
-  const currentCity = offers[0]?.city;
-
+function PageMain({ offers, currentCity }: PageMainProps): JSX.Element {
   const mainPageMain = classNames('page__main page__main--index', {
     'page__main--index-empty': offers.length === 0,
   });
@@ -28,13 +27,13 @@ function PageMain({ offers }: PageMainProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationsList currentLocation={currentCity.name}/>
+            <LocationsList currentLocation={ currentCity } />
           </section>
         </div>
         <div className="cities">
           {
             offers.length !== 0 ?
-              <Cities offers={offers}/>
+              <Cities offers={ offers } />
               :
               <MainEmpty />
           }

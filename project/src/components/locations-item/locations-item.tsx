@@ -1,27 +1,33 @@
-import React from 'react';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+import { LocationItem } from '../../const';
 
 type LocationsItemProps = {
-  isActive: boolean;
+  isActive?: boolean;
   locationsItemCity: string;
   onClick: (location: string) => void;
+  position: LocationItem;
 }
 
-function LocationsItem({isActive, locationsItemCity, onClick} : LocationsItemProps): JSX.Element {
+function LocationsItem({isActive, locationsItemCity, onClick, position} : LocationsItemProps): JSX.Element {
   const locationElementClickHandler = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
+
     onClick(locationsItemCity);
   };
 
+  const locationItemClass = classNames('locations__item-link', {
+    'tabs__item': position === LocationItem.cities,
+    'tabs__item--active': isActive === true,
+  });
+
   return (
-    <li className="locations__item">
-      <Link className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`}
-        to="/"
-        onClick={locationElementClickHandler}
-      >
-        <span>{locationsItemCity}</span>
-      </Link>
-    </li>
+    <Link className={locationItemClass}
+      to="/"
+      onClick={locationElementClickHandler}
+    >
+      <span>{locationsItemCity}</span>
+    </Link>
   );
 }
 

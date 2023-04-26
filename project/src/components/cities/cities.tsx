@@ -9,7 +9,7 @@ type CitiesProps = {
 }
 
 function Cities({ offers }: CitiesProps) :JSX.Element{
-  const currentCity = offers[0]?.city;
+  const currentCity = offers[0].city;
   const [activeOffer, setActiveOffer] = useState<Offer | undefined>(undefined);
 
   const onCityCardHover = (offerId: number | null) => {
@@ -21,11 +21,11 @@ function Cities({ offers }: CitiesProps) :JSX.Element{
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in {currentCity.name}</b>
-        <CitiesPlacesList offers={offers} onCityCardHover={onCityCardHover}/>
+        <b className="places__found">{ offers.length } places to stay in { currentCity.name }</b>
+        <CitiesPlacesList offers={ offers } onCityCardHover={ onCityCardHover }/>
       </section>
       <div className="cities__right-section">
-        <Map city={currentCity} offers={offers} selectedOffer={activeOffer} propertyMapLocation={PropertyMapLocation.cities}/>
+        <Map city={ currentCity } offers={ offers } selectedOffer={ activeOffer } propertyMapLocation={ PropertyMapLocation.cities }/>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export const CheckAuthorizationAction = createAsyncThunk<UserData, undefined, {
 }
 >(
   'user/checkAuth',
-  async(_arg, {dispatch, extra: api}) => {
+  async(_arg, { extra: api }) => {
     const {data} = await api.get<UserData>(APIRoute.Login);
 
     return data;
@@ -32,8 +32,8 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
 }
 >(
   'user/login',
-  async({login: email, password}, {dispatch, extra: api}) => {
-    const {data} = await api.post<UserData>(APIRoute.Login, {email,password});
+  async({ login: email, password }, { dispatch, extra: api }) => {
+    const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(data.token);
     dispatch(routeRedirection(AppRoute.Root));
 
@@ -48,7 +48,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
 }
 >(
   'user/logout',
-  async(_arg, {dispatch, extra: api}) => {
+  async(_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout);
     dropToken();
   },
@@ -61,7 +61,7 @@ export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
 }
 >(
   'data/fetchOffers',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { extra: api }) => {
     const {data} = await api.get<Offers>(APIRoute.Offers);
 
     return data;
@@ -75,7 +75,7 @@ export const fetchOfferActiveAction = createAsyncThunk<Offer | null, number, {
 }
 >(
   'data/fetchOfferActive',
-  async(id, {dispatch, extra: api}) => {
+  async(id, { dispatch, extra: api }) => {
     try {
       const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
       dispatch(fetchReviewsAction(id));
@@ -96,7 +96,7 @@ export const fetchOffersNearbyActiveAction = createAsyncThunk<Offers, number, {
 }
 >(
   'data/fetchOffersNearby',
-  async(id, {dispatch, extra: api}) => {
+  async(id, { extra: api }) => {
     const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
 
     return data;
@@ -110,7 +110,7 @@ export const fetchAddNewReview = createAsyncThunk<ReviewData, ReviewData, {
 }
 >(
   'review/fetchAddNewReview',
-  async({id, review}, {dispatch, extra: api}) => {
+  async({ id, review }, { extra: api }) => {
     const {data} = await api.post<ReviewData>(`${APIRoute.Review}/${id}`, review);
 
     return data;
@@ -124,7 +124,7 @@ export const fetchReviewsAction = createAsyncThunk<Reviews, number, {
 }
 >(
   'reviews/fetchReviews',
-  async(id, {dispatch, extra: api}) => {
+  async(id, { extra: api }) => {
     const {data} = await api.get<Reviews>(`${APIRoute.Review}/${id}`);
 
     return data;

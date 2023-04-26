@@ -11,8 +11,8 @@ type OfferCardProps = {
   onMouseLeave?: () => void;
 }
 
-function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps ) {
-  const {price, rating, type, title, id, isPremium, previewImage,} = offer;
+function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps): JSX.Element {
+  const {id, isPremium, previewImage, price, rating, title, type } = offer;
 
 
   const offerCardClass: string = classNames('place-card', {
@@ -34,9 +34,9 @@ function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps
 
   return (
     <article
-      className={offerCardClass}
-      onMouseEnter={onMouseEnterHandler}
-      onMouseLeave={onMouseLeaveHandler}
+      className={ offerCardClass }
+      onMouseEnter={ onMouseEnterHandler }
+      onMouseLeave={ onMouseLeaveHandler }
     >
       {
         isPremium ?
@@ -53,7 +53,7 @@ function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{price}</b>
+            <b className="place-card__price-value">&euro;{ price }</b>
             <span className="place-card__price-text">
               &#47;&nbsp;night
             </span>
@@ -67,10 +67,10 @@ function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps
         </div>
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>
-            {title}
+            { title }
           </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{ type }</p>
       </div>
     </article>
   );

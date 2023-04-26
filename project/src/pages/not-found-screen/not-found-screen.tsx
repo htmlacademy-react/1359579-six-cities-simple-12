@@ -1,6 +1,5 @@
-import Header from '../../components/header/header';
-import {Link} from 'react-router-dom';
-import {Helmet} from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 function NotFoundPage(): JSX.Element {
   return(
@@ -8,8 +7,6 @@ function NotFoundPage(): JSX.Element {
       <Helmet>
         <title>This page could not be found!</title>
       </Helmet>
-
-      <Header />
 
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>

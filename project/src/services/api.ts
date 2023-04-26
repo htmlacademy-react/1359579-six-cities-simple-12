@@ -24,6 +24,7 @@ export const createAPI = (): AxiosInstance => {
       if (token && config.headers) {
         config.headers['x-token'] = token;
       }
+
       return config;
     },
   );
@@ -31,10 +32,12 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError <{error: string}>) => {
+    (error: AxiosError<{error: string}>) => {
       if (error.response && displayError(error.response)) {
         toast.warn(error.response.data.error);
       }
+
+      throw error;
     }
   );
 
