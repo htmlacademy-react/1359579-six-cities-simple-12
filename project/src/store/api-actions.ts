@@ -33,11 +33,17 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
 >(
   'user/login',
   async({ login: email, password }, { dispatch, extra: api }) => {
-    const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(data.token);
-    dispatch(routeRedirection(AppRoute.Main));
+    try {
+      const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+      saveToken(data.token);
+      dispatch(routeRedirection(AppRoute.Main));
 
-    return data;
+      return data;
+    }catch (error) {
+      toast.error('Login failed');
+
+      throw error;
+    }
   },
 );
 
