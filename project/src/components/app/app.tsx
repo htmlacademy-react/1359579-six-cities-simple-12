@@ -9,7 +9,6 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import ScreenLoading from '../../pages/screen-loading/screen-loading';
 import HistoryRouter from '../history-route/history-route';
-
 import {
   getCityName,
   getOffers,
@@ -33,9 +32,10 @@ function App(): JSX.Element {
       <HistoryRouter history={ browserHistory }>
         <Routes>
           <Route
-            path="/"
+            path={AppRoute.Main}
             element={
-              <PageMain offers={ offersCity }
+              <PageMain
+                offers={ offersCity }
                 currentCity={ cityName }
               />
             }
@@ -45,14 +45,14 @@ function App(): JSX.Element {
             element={ <Login /> }
           />
           <Route
-            path={ AppRoute.Property }
+            path={ AppRoute.NotFound }
+            element={ <NotFoundScreen /> }
+          />
+          <Route
+            path={ AppRoute.Room }
             element={
               <OfferPage/>
             }
-          />
-          <Route
-            path='*'
-            element={ <NotFoundScreen /> }
           />
         </Routes>
       </HistoryRouter>

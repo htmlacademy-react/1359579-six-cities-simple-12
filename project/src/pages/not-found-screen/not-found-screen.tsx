@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { AppRoute } from '../../const';
 
 function NotFoundPage(): JSX.Element {
   return(
@@ -15,7 +16,7 @@ function NotFoundPage(): JSX.Element {
             <section className="cities__no-places">
               <div className="cities__status-wrapper tabs__content">
                 <b className="cities__status">404. Page not found</b>
-                <Link to="/">Вернуться на главную</Link>
+                <Link to={ AppRoute.Main }>Вернуться на главную</Link>
               </div>
             </section>
             <div className="cities__right-section"></div>

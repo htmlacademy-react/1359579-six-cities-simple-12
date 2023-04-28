@@ -1,16 +1,16 @@
 export type User = {
-  id: number;
-  name: string;
   avatarUrl: string;
+  id: number;
   isPro: boolean;
+  name: string;
 }
 
 export type Review = {
-  user: User;
   comment: string;
   date: string;
   id: number;
   rating: number;
+  user: User;
 }
 
 export type Reviews = Review[];

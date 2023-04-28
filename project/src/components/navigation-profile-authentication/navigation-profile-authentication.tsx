@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { UserData } from '../../types/user-data';
 import { useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { AppRoute } from '../../const';
 
 type NavProfAuthProps = {
   userData: UserData;
@@ -27,7 +28,7 @@ function NavProfAuth ({ userData }: NavProfAuthProps): JSX.Element {
       <li className="header__nav-item">
         <Link
           className="header__nav-link"
-          to="/"
+          to={ AppRoute.Main }
           onClick={ exitClickHandler }
         >
           <span className="header__signout">Sign out</span>

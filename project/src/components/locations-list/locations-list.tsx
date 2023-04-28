@@ -1,8 +1,7 @@
-import { CITY_NAMES } from '../../const';
 import LocationsItem from '../locations-item/locations-item';
 import { useAppDispatch } from '../../hooks';
 import { cityChange } from '../../store/offer-process/offer-process';
-import { LocationItem } from '../../const';
+import { LocationItemPosition, CITY_NAMES } from '../../const';
 
 type LocationsListProps = {
   currentLocation: string;
@@ -16,7 +15,7 @@ function LocationsList({ currentLocation }: LocationsListProps):JSX.Element {
         CITY_NAMES.map((item) => (
           <li className="locations__item" key={ item }>
             <LocationsItem
-              position={ LocationItem.cities }
+              position={ LocationItemPosition.Cities }
               locationsItemCity={ item }
               isActive={ currentLocation === item }
               onClick={(locationItemName) => dispatch(cityChange(locationItemName))}

@@ -1,32 +1,37 @@
 import { Offer } from '../../types/offer';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { OfferCardLocation} from '../../const';
+import { OfferCardPosition } from '../../const';
 import { getPlaceRating } from '../../const';
 
 type OfferCardProps = {
-  location: OfferCardLocation;
+  location: OfferCardPosition;
   offer: Offer;
   onMouseEnter?: (id: number) => void;
   onMouseLeave?: () => void;
 }
 
-function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps): JSX.Element {
+function OfferCard({
+  location,
+  offer,
+  onMouseEnter,
+  onMouseLeave,
+}: OfferCardProps): JSX.Element {
+
   const {id, isPremium, previewImage, price, rating, title, type } = offer;
 
-
   const offerCardClass: string = classNames('place-card', {
-    'cities__card': location === OfferCardLocation.cities,
-    'near-places__card': location === OfferCardLocation.nearPlaces,
+    'cities__card': location === OfferCardPosition.Cities,
+    'near-places__card': location === OfferCardPosition.NearPlaces,
   });
 
-  const onMouseEnterHandler = () => {
+  const mouseInputHandle = () => {
     if (onMouseEnter) {
       onMouseEnter(offer.id);
     }
   };
 
-  const onMouseLeaveHandler = () => {
+  const mouseLeaveHandle = () => {
     if (onMouseLeave) {
       onMouseLeave();
     }
@@ -35,8 +40,8 @@ function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps
   return (
     <article
       className={ offerCardClass }
-      onMouseEnter={ onMouseEnterHandler }
-      onMouseLeave={ onMouseLeaveHandler }
+      onMouseEnter={ mouseInputHandle }
+      onMouseLeave={ mouseLeaveHandle }
     >
       {
         isPremium ?
@@ -46,8 +51,8 @@ function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps
           : ''
       }
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place" />
+        <Link to={ `/offer/${offer.id}` }>
+          <img className="place-card__image" src={ previewImage } width="260" height="200" alt="" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -66,7 +71,7 @@ function OfferCard({location, offer, onMouseEnter, onMouseLeave}: OfferCardProps
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>
+          <Link to={ `/offer/${ id }` }>
             { title }
           </Link>
         </h2>

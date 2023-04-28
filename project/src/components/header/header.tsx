@@ -19,10 +19,8 @@ function Header(): JSX.Element {
           <nav className="header__nav">
             <ul className="header__nav-list">
               {
-                (authorizationStatus === AuthorizationStatus.Auth && user)
-                  ?
-                  <NavProfAuth userData={ user } />
-                  :
+                (authorizationStatus === AuthorizationStatus.Auth && user) ?
+                  <NavProfAuth userData={ user } /> :
                   <NavProfNoAuth />
               }
             </ul>

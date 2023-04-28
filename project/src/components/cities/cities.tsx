@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CitiesPlacesList from '../cities-places-list/cities-places-list';
 import { Offers, Offer } from '../../types/offer';
 import Map from '../map/map';
-import { PropertyMapLocation } from '../../const';
+import { PropertyMapPosition } from '../../const';
 
 type CitiesProps = {
   offers: Offers;
@@ -25,7 +25,7 @@ function Cities({ offers }: CitiesProps) :JSX.Element{
         <CitiesPlacesList offers={ offers } onCityCardHover={ onCityCardHover }/>
       </section>
       <div className="cities__right-section">
-        <Map city={ currentCity } offers={ offers } selectedOffer={ activeOffer } propertyMapLocation={ PropertyMapLocation.cities }/>
+        <Map city={ currentCity } offers={ offers } selectedOffer={ activeOffer } propertyMapPosition={ PropertyMapPosition.Cities }/>
       </div>
     </div>
   );

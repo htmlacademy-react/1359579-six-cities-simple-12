@@ -1,15 +1,15 @@
 export enum AppRoute {
   Login = '/login',
   NotFound = '*',
-  Root = '/',
-  Property = '/offer/:id',
+  Main = '/',
+  Room = '/offer/:id',
 }
 
 export enum APIRoute {
   Offers = '/hotels',
+  Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
-  Review = 'review',
 }
 
 export enum NameSpace {
@@ -23,30 +23,37 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export enum OfferCardLocation {
-  cities = 'cities',
-  nearPlaces = 'nearPlaces',
+export enum OfferCardPosition {
+  Cities = 'cities',
+  NearPlaces = 'nearPlaces',
 }
 
-export enum PropertyMapLocation {
-  cities = 'cities',
-  property = 'property',
+export enum PropertyMapPosition {
+  Cities = 'cities',
+  Room = 'property',
 }
 
-export enum LocationItem {
-  login = 'login',
-  cities = 'cities',
+export enum LocationItemPosition {
+  Login = 'login',
+  Cities = 'cities',
+}
+
+export enum RequestStatus {
+  Pending = 'PENDING',
+  Success = 'SUCCESS',
+  Failure = 'FAILURE',
+  Unknow = 'UNKNOW',
 }
 
 export const REQUEST_TIMEOUT = 5000;
 export const IMAGE_COUNT = 6;
-export const MIN_RATING = 0;
-export const MAX_RATING = 5;
 export const MIN_SYMBOL_COMMENT = 50;
 export const MAX_SYMBOL_COMMENT = 300;
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
+export const MAX_RATING = 5;
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-simple-12';
 export const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';
 export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf',];
-export const getPlaceRating = (rating: number): number => Math.round(rating) * 100 / 5;
+
+export const getPlaceRating = (rating: number): number => Math.round(rating) * 100 / MAX_RATING;

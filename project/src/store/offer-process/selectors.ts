@@ -1,4 +1,4 @@
-import { NameSpace } from '../../const';
+import { NameSpace, RequestStatus } from '../../const';
 import { City, Offers, Offer } from '../../types/offer';
 import { Reviews } from '../../types/review';
 import { State } from '../../types/state';
@@ -17,4 +17,4 @@ export const getActiveOffersNearby = (state: State): Offers => state[NameSpace.D
 
 export const getActiveOfferStatus = (state: State): boolean => state[NameSpace.Data].isActiveOfferStatus;
 
-export const createSuccessReview = (state: State): boolean => state[NameSpace.Data].isSuccessReviewAdded;
+export const createSuccessReview = (state: State): RequestStatus => state[NameSpace.Data].isSuccessReviewAdded;
