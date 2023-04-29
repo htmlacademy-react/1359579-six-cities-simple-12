@@ -12,9 +12,9 @@ import {
 const initialState: OfferProcess = {
   cityName: CITY_NAMES[0],
   offers: [],
+  activeOffer: null,
   reviews: [],
   activeOffersNearby: [],
-  activeOffer: null,
   isCompletionOfOffers: false,
   isActiveOfferStatus: false,
   isSuccessReviewAdded: RequestStatus.Unknow,
@@ -62,8 +62,9 @@ export const offerProcess = createSlice({
       .addCase(fetchAddNewComment.pending, (state) => {
         state.isSuccessReviewAdded = RequestStatus.Pending;
       })
-      .addCase(fetchAddNewComment.fulfilled, (state) => {
+      .addCase(fetchAddNewComment.fulfilled, (state, action) => {
         state.isSuccessReviewAdded = RequestStatus.Success;
+        state.reviews = action.payload;
       })
       .addCase(fetchAddNewComment.rejected, (state) => {
         state.isSuccessReviewAdded = RequestStatus.Failure;

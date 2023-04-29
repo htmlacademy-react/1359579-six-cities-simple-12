@@ -12,9 +12,9 @@ export type UserProcess = {
 export type OfferProcess = {
   cityName: string;
   offers: Offers;
+  activeOffer: Offer | null;
   reviews: Reviews;
   activeOffersNearby: Offers;
-  activeOffer: Offer | null;
   isCompletionOfOffers: boolean;
   isActiveOfferStatus: boolean;
   isSuccessReviewAdded: RequestStatus;
