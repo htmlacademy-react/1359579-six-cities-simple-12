@@ -9,7 +9,7 @@ import { UserData } from '../types/user-data';
 import { ReviewData } from '../types/review-data';
 import { Reviews } from '../types/review';
 import { saveToken, dropToken } from '../services/token';
-
+import { toast } from 'react-toastify';
 
 export const CheckAuthorizationAction = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
@@ -35,7 +35,7 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
   async({ login: email, password }, { dispatch, extra: api }) => {
     const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(data.token);
-    dispatch(routeRedirection(AppRoute.Root));
+    dispatch(routeRedirection(AppRoute.Main));
 
     return data;
   },
@@ -62,7 +62,55 @@ export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
 >(
   'data/fetchOffers',
   async (_arg, { extra: api }) => {
-    const {data} = await api.get<Offers>(APIRoute.Offers);
+    const { data } = await api.get<Offers>(APIRoute.Offers);
+
+    return data;
+  },
+);
+
+export const fetchOffersNearbyActiveAction = createAsyncThunk<Offers, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'data/fetchOfferIdNearby',
+  async(id, { extra: api }) => {
+    const { data } = await api.get<Offers>(APIRoute.Offers.concat(`/${id}/nearby`));
+
+    return data;
+  },
+);
+
+export const fetchAddNewComment = createAsyncThunk<Reviews, ReviewData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'comments/fetchAddNewComment',
+  async({ id, review }, { extra: api, rejectWithValue}) => {
+    try {
+      const { data } = await api.post<Reviews>(`${ APIRoute.Comments }/${id}`, review);
+
+      return data;
+    } catch (error) {
+      toast.error('Ups! Failed to save review');
+
+      return rejectWithValue(null);
+    }
+  }
+);
+
+export const fetchCommentsAction = createAsyncThunk<Reviews, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'comments/fetchComments',
+  async(id, { extra: api }) => {
+    const { data } = await api.get<Reviews>(`${ APIRoute.Comments }/${id}`);
 
     return data;
   },
@@ -74,11 +122,11 @@ export const fetchOfferActiveAction = createAsyncThunk<Offer | null, number, {
   extra: AxiosInstance;
 }
 >(
-  'data/fetchOfferActive',
+  'data/fetchActiveOffer',
   async(id, { dispatch, extra: api }) => {
     try {
-      const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
-      dispatch(fetchReviewsAction(id));
+      const {data} = await api.get<Offer>(`${ APIRoute.Offers }/${id}`);
+      dispatch(fetchCommentsAction(id));
       return data;
 
     } catch (error) {
@@ -86,47 +134,5 @@ export const fetchOfferActiveAction = createAsyncThunk<Offer | null, number, {
 
       return null;
     }
-  },
-);
-
-export const fetchOffersNearbyActiveAction = createAsyncThunk<Offers, number, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}
->(
-  'data/fetchOffersNearby',
-  async(id, { extra: api }) => {
-    const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
-
-    return data;
-  },
-);
-
-export const fetchAddNewReview = createAsyncThunk<ReviewData, ReviewData, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}
->(
-  'review/fetchAddNewReview',
-  async({ id, review }, { extra: api }) => {
-    const {data} = await api.post<ReviewData>(`${APIRoute.Review}/${id}`, review);
-
-    return data;
-  },
-);
-
-export const fetchReviewsAction = createAsyncThunk<Reviews, number, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}
->(
-  'reviews/fetchReviews',
-  async(id, { extra: api }) => {
-    const {data} = await api.get<Reviews>(`${APIRoute.Review}/${id}`);
-
-    return data;
   },
 );

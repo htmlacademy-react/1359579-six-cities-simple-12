@@ -13,7 +13,7 @@ type PageMainProps = {
 
 function PageMain({ offers, currentCity }: PageMainProps): JSX.Element {
   const mainPageMain = classNames('page__main page__main--index', {
-    'page__main--index-empty': offers.length === 0,
+    'page__main--index-empty': !offers.length,
   });
 
   return (
@@ -23,7 +23,7 @@ function PageMain({ offers, currentCity }: PageMainProps): JSX.Element {
       </Helmet>
       <Header />
 
-      <main className={mainPageMain}>
+      <main className={ mainPageMain }>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -32,9 +32,8 @@ function PageMain({ offers, currentCity }: PageMainProps): JSX.Element {
         </div>
         <div className="cities">
           {
-            offers.length !== 0 ?
-              <Cities offers={ offers } />
-              :
+            offers.length ?
+              <Cities offers={ offers } /> :
               <MainEmpty />
           }
         </div>

@@ -1,9 +1,9 @@
 import { ChangeEvent, useState, useEffect, FormEvent } from 'react';
-import {MIN_SYMBOL_COMMENT, MAX_SYMBOL_COMMENT} from '../../const';
+import { MIN_SYMBOL_COMMENT, MAX_SYMBOL_COMMENT, RequestStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { createSuccessReview } from '../../store/offer-process/selectors';
 import { ReviewData } from '../../types/review-data';
-import { fetchAddNewReview, fetchReviewsAction } from '../../store/api-actions';
+import { fetchAddNewComment } from '../../store/api-actions';
 
 type ReviewsFormProps = {
   activeId: number;
@@ -21,18 +21,26 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
   const isSuccess = useAppSelector(createSuccessReview);
   const [isFormDisabled, setFormDisabled] = useState(false);
 
-  const onHandlerChanges = (evt: ChangeEvent <HTMLInputElement | HTMLTextAreaElement>) => {
+  const fieldChangeHandle = (evt: ChangeEvent <HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value });
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess === RequestStatus.Success) {
       setFormData({
         rating: '',
         review: '',
       });
+    }
+
+    if (isSuccess === RequestStatus.Failure ||
+        isSuccess === RequestStatus.Unknow ||
+        isSuccess === RequestStatus.Success) {
       setFormDisabled(false);
+    }
+    if (isSuccess === RequestStatus.Pending) {
+      setFormDisabled(true);
     }
   }, [isSuccess]);
 
@@ -45,14 +53,13 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
   }, [formData, isSendingDisabled]);
 
   const onSubmit = ({ id, review }: ReviewData) => {
-    dispatch(fetchAddNewReview({ review, id }));
-    dispatch(fetchReviewsAction(id));
+    dispatch(fetchAddNewComment({ id, review }));
   };
 
   const submitHandle = (evt: FormEvent <HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (formData.rating !== '' && formData.review !== '') {
+    if (formData.rating && formData.review) {
       onSubmit({
         id: activeId,
         review: {
@@ -68,7 +75,7 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"
-          onChange={ onHandlerChanges }
+          onChange={ fieldChangeHandle }
           checked={ formData.rating === '5' }
         />
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
@@ -77,7 +84,7 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
           </svg>
         </label>
         <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"
-          onChange={ onHandlerChanges }
+          onChange={ fieldChangeHandle }
           checked={ formData.rating === '4' }
           disabled={ isFormDisabled }
         />
@@ -87,7 +94,7 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
           </svg>
         </label>
         <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"
-          onChange={ onHandlerChanges }
+          onChange={ fieldChangeHandle }
           checked={ formData.rating === '3' }
           disabled={ isFormDisabled }
         />
@@ -97,7 +104,7 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
           </svg>
         </label>
         <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"
-          onChange={ onHandlerChanges }
+          onChange={ fieldChangeHandle }
           checked={ formData.rating === '2' }
           disabled={ isFormDisabled }
         />
@@ -107,7 +114,7 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
           </svg>
         </label>
         <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"
-          onChange={ onHandlerChanges }
+          onChange={ fieldChangeHandle }
           checked={ formData.rating === '1' }
           disabled={ isFormDisabled }
         />
@@ -118,8 +125,9 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
         </label>
       </div>
       <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={ onHandlerChanges }
+        onChange={ fieldChangeHandle }
         disabled={ isFormDisabled }
+        value={ formData.review }
       >
 
       </textarea>
@@ -127,8 +135,9 @@ function ReviewForm({ activeId }: ReviewsFormProps) : JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit"
-          disabled={isSendingDisabled}
+        <button className="reviews__submit form__submit button"
+          type="submit"
+          disabled={ isSendingDisabled || isFormDisabled }
         >
           Submit
         </button>

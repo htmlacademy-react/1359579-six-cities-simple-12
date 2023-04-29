@@ -1,18 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OfferProcess } from '../../types/state';
-import { NameSpace, CITY_NAMES } from '../../const';
-import { fetchOffersAction, fetchOfferActiveAction, fetchOffersNearbyActiveAction, fetchAddNewReview, fetchReviewsAction,
+import { NameSpace, CITY_NAMES, RequestStatus } from '../../const';
+import {
+  fetchOffersAction,
+  fetchOfferActiveAction,
+  fetchOffersNearbyActiveAction,
+  fetchAddNewComment,
+  fetchCommentsAction,
 } from '../api-actions';
 
 const initialState: OfferProcess = {
   cityName: CITY_NAMES[0],
   offers: [],
+  activeOffer: null,
   reviews: [],
   activeOffersNearby: [],
-  activeOffer: null,
   isCompletionOfOffers: false,
   isActiveOfferStatus: false,
-  isSuccessReviewAdded: false,
+  isSuccessReviewAdded: RequestStatus.Unknow,
 };
 
 export const offerProcess = createSlice({
@@ -51,17 +56,18 @@ export const offerProcess = createSlice({
       .addCase(fetchOffersNearbyActiveAction.fulfilled, (state, action) => {
         state.activeOffersNearby = action.payload;
       })
-      .addCase(fetchReviewsAction.fulfilled, (state, action) => {
+      .addCase(fetchCommentsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
-      .addCase(fetchAddNewReview.pending, (state) => {
-        state.isSuccessReviewAdded = false;
+      .addCase(fetchAddNewComment.pending, (state) => {
+        state.isSuccessReviewAdded = RequestStatus.Pending;
       })
-      .addCase(fetchAddNewReview.fulfilled, (state) => {
-        state.isSuccessReviewAdded = true;
+      .addCase(fetchAddNewComment.fulfilled, (state, action) => {
+        state.isSuccessReviewAdded = RequestStatus.Success;
+        state.reviews = action.payload;
       })
-      .addCase(fetchAddNewReview.rejected, (state) => {
-        state.isSuccessReviewAdded = false;
+      .addCase(fetchAddNewComment.rejected, (state) => {
+        state.isSuccessReviewAdded = RequestStatus.Failure;
       });
   }
 });

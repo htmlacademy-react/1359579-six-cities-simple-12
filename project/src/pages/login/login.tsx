@@ -3,13 +3,14 @@ import { Helmet } from 'react-helmet-async';
 import { Navigate } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AppRoute, AuthorizationStatus, CITY_NAMES, LocationItem } from '../../const';
+import { AppRoute, AuthorizationStatus, CITY_NAMES, LocationItemPosition } from '../../const';
 import { AuthData } from '../../types/auth-data';
 import { loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import LocationsItem from '../../components/locations-item/locations-item';
 import { cityChange } from '../../store/offer-process/offer-process';
 import { routeRedirection } from '../../store/action';
+import { toast } from 'react-toastify';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -17,14 +18,14 @@ function Login(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const isValidPassword = (password: string) => {
-    const pattern = new RegExp('(?=.*[a-z])|(?=.*[A-Z])(?=.*[0-9]).{1,20}');
+    const pattern = new RegExp('^(?=.*[0-9])(?=[a-zA-Z0-9]*[a-zA-Z])[a-zA-Z0-9]{2,20}$');
     return pattern.test(password);
   };
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (authorizationStatus === AuthorizationStatus.Auth) {
-    return <Navigate to={AppRoute.Root}/>;
+    return <Navigate to={AppRoute.Main}/>;
   }
 
   const onSubmit = (authData: AuthData) => {
@@ -41,6 +42,8 @@ function Login(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
+    } else {
+      toast.warn('The password must be received with a number and a letter');
     }
   };
 
@@ -80,11 +83,11 @@ function Login(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <LocationsItem
-                position={ LocationItem.login }
+                position={ LocationItemPosition.Login }
                 locationsItemCity={ randomCityName }
-                onClick={ (locationsItemCity) => {
-                  dispatch(cityChange(locationsItemCity));
-                  dispatch(routeRedirection(AppRoute.Root));
+                onClick={ (locationItemCity) => {
+                  dispatch(cityChange(locationItemCity));
+                  dispatch(routeRedirection(AppRoute.Main));
                 }}
               />
             </div>

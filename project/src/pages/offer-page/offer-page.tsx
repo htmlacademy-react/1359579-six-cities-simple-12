@@ -1,18 +1,17 @@
-import Header from '../../components/header/header';
-import { Helmet } from 'react-helmet-async';
-import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import ReviewsItem from '../../components/reviews-item/reviews-item';
+import ReviewsForm from '../../components/reviews-form/reviews-form';
 import NearPlaces from '../../components/near-places/near-places';
 import Map from '../../components/map/map';
-import { PropertyMapLocation } from '../../const';
-import { getPlaceRating, IMAGE_COUNT, AuthorizationStatus } from '../../const';
-import { fetchOfferActiveAction, fetchOffersNearbyActiveAction, fetchReviewsAction } from '../../store/api-actions';
 import NotFoundPage from '../not-found-screen/not-found-screen';
 import ScreenLoading from '../screen-loading/screen-loading';
+import Header from '../../components/header/header';
+import { getPlaceRating, IMAGE_COUNT, AuthorizationStatus, PropertyMapPosition } from '../../const';
+import { fetchOfferActiveAction, fetchOffersNearbyActiveAction, fetchCommentsAction } from '../../store/api-actions';
 import { Review, Reviews } from '../../types/review';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import {
   getActiveOffer,
@@ -24,6 +23,7 @@ import {
 function sortReviewsByDate(reviews: Reviews) {
   const items = [...reviews];
   items.sort((a: Review, b: Review) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
   return items;
 }
 
@@ -41,18 +41,17 @@ function OfferPage(): JSX.Element {
 
   const showReviews = sortReviewsByDate(reviews).slice(0, 10);
 
-
   useEffect(() => {
     dispatch(fetchOfferActiveAction(activeOfferId));
+    dispatch(fetchCommentsAction(activeOfferId));
     dispatch(fetchOffersNearbyActiveAction(activeOfferId));
-    dispatch(fetchReviewsAction(activeOfferId));
   }, [dispatch, activeOfferId]);
 
   if (isNaN(activeOfferId)) {
     return <NotFoundPage />;
   }
 
-  if (!offerActive || !isActiveOfferStatus) {
+  if (!isActiveOfferStatus || !offerActive ) {
     return <ScreenLoading />;
   }
 
@@ -72,8 +71,8 @@ function OfferPage(): JSX.Element {
             <div className="property__gallery">
               {
                 offerActive.images.slice(0, IMAGE_COUNT).map((image) => (
-                  <div className="property__image-wrapper" key={image}>
-                    <img className="property__image" src={image} alt="Studio" />
+                  <div className="property__image-wrapper" key={ image }>
+                    <img className="property__image" src={image} alt=""/>
                   </div>
                 ))
               }
@@ -131,7 +130,7 @@ function OfferPage(): JSX.Element {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={ offerActive.host.avatarUrl } width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={ `/${offerActive.host.avatarUrl}` } width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
                     { offerActive.host.name }
@@ -150,7 +149,7 @@ function OfferPage(): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{ showReviews.length }</span></h2>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{ reviews.length }</span></h2>
                 <ul className="reviews__list">
                   {
                     showReviews.map((comment) => <ReviewsItem review={comment} key={comment.id}/>)
@@ -159,7 +158,12 @@ function OfferPage(): JSX.Element {
                 { authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm activeId={ activeOfferId }/> }
               </section>
             </div>
-            <Map city={ offerActive.city } offers={ offersNearbyActive } selectedOffer={ offerActive } propertyMapLocation={ PropertyMapLocation.property } />
+            <Map
+              city={ offerActive.city }
+              offers={ [...offersNearbyActive, offerActive] }
+              selectedOffer={ offerActive }
+              propertyMapPosition={ PropertyMapPosition.Room }
+            />
           </div>
         </section>
         <div className="container">

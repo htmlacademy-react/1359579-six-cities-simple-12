@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import OfferCard from '../offer-card/offer-card';
 import { Offers } from '../../types/offer';
-import { OfferCardLocation } from '../../const';
+import { OfferCardPosition } from '../../const';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import { SortTypes, filtrationByType } from '../places-sorting/filtration';
 type CitiesPlacesListProps = {
@@ -26,9 +26,9 @@ function CitiesPlacesList({ offers, onCityCardHover }: CitiesPlacesListProps): J
         {
           sortOffers.map((offer) => (
             <OfferCard
-              offer={offer}
-              key={offer.id}
-              location={OfferCardLocation.cities}
+              offer={ offer }
+              key={ offer.id }
+              location={ OfferCardPosition.Cities }
               onMouseEnter={() => onCityCardHover(offer.id)}
               onMouseLeave={() => onCityCardHover(null)}
             />
