@@ -33,17 +33,11 @@ export const loginAction = createAsyncThunk<UserData, AuthData, {
 >(
   'user/login',
   async({ login: email, password }, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
-      saveToken(data.token);
-      dispatch(routeRedirection(AppRoute.Main));
+    const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
+    saveToken(data.token);
+    dispatch(routeRedirection(AppRoute.Main));
 
-      return data;
-    }catch (error) {
-      toast.error('Login failed');
-
-      throw error;
-    }
+    return data;
   },
 );
 
@@ -97,7 +91,7 @@ export const fetchAddNewComment = createAsyncThunk<Reviews, ReviewData, {
   'comments/fetchAddNewComment',
   async({ id, review }, { extra: api, rejectWithValue}) => {
     try {
-      const { data } = await api.post<Reviews>(`${ APIRoute.Comments }/${ id }`, review);
+      const { data } = await api.post<Reviews>(`${ APIRoute.Comments }/${id}`, review);
 
       return data;
     } catch (error) {
@@ -116,7 +110,7 @@ export const fetchCommentsAction = createAsyncThunk<Reviews, number, {
 >(
   'comments/fetchComments',
   async(id, { extra: api }) => {
-    const { data } = await api.get<Reviews>(`${ APIRoute.Comments }/${ id }`);
+    const { data } = await api.get<Reviews>(`${ APIRoute.Comments }/${id}`);
 
     return data;
   },
@@ -131,7 +125,7 @@ export const fetchOfferActiveAction = createAsyncThunk<Offer | null, number, {
   'data/fetchActiveOffer',
   async(id, { dispatch, extra: api }) => {
     try {
-      const {data} = await api.get<Offer>(`${ APIRoute.Offers }/${ id }`);
+      const {data} = await api.get<Offer>(`${ APIRoute.Offers }/${id}`);
       dispatch(fetchCommentsAction(id));
       return data;
 

@@ -10,6 +10,7 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import LocationsItem from '../../components/locations-item/locations-item';
 import { cityChange } from '../../store/offer-process/offer-process';
 import { routeRedirection } from '../../store/action';
+import { toast } from 'react-toastify';
 
 function Login(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -41,6 +42,8 @@ function Login(): JSX.Element {
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
+    } else {
+      toast.warn('The password must be received with a number and a letter');
     }
   };
 
@@ -82,8 +85,8 @@ function Login(): JSX.Element {
               <LocationsItem
                 position={ LocationItemPosition.Login }
                 locationsItemCity={ randomCityName }
-                onClick={ (locationsItemCity) => {
-                  dispatch(cityChange(locationsItemCity));
+                onClick={ (locationItemCity) => {
+                  dispatch(cityChange(locationItemCity));
                   dispatch(routeRedirection(AppRoute.Main));
                 }}
               />
