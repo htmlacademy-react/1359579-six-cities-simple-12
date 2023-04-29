@@ -4,6 +4,7 @@ import { Offers } from '../../types/offer';
 import { OfferCardPosition } from '../../const';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import { SortTypes, filtrationByType } from '../places-sorting/filtration';
+
 type CitiesPlacesListProps = {
   offers: Offers;
   onCityCardHover: (id: number | null) => void;

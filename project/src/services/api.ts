@@ -1,10 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from './token';
 import { StatusCodes } from 'http-status-codes';
+import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 import { toast } from 'react-toastify';
-
-const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';
-const REQUEST_TIMEOUT = 5000;
 
 const StatusCodeDisplay: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
