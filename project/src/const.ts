@@ -53,7 +53,7 @@ export const URL_MARKER_DEFAULT = '/img/pin.svg';
 export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 export const MAX_RATING = 5;
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-simple-12';
-export const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple/';
+export const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';
 export const CITY_NAMES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf',];
 
 export const getPlaceRating = (rating: number): number => Math.round(rating) * 100 / MAX_RATING;

@@ -15,10 +15,10 @@ function LocationsList({ currentLocation }: LocationsListProps):JSX.Element {
         CITY_NAMES.map((item) => (
           <li className="locations__item" key={ item }>
             <LocationsItem
-              isActive={ currentLocation === item }
-              locationsItemCity={ item }
-              onClick={(locationItemCity) => dispatch(cityChange(locationItemCity))}
               position={ LocationItemPosition.Cities }
+              locationsItemCity={ item }
+              isActive={ currentLocation === item }
+              onClick={(locationItemName) => dispatch(cityChange(locationItemName))}
             />
           </li>
         ))
